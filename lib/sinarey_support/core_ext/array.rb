@@ -1,0 +1,5 @@
+require 'sinarey_support/core_ext/array/wrap'
+require 'sinarey_support/core_ext/array/access'
+require 'sinarey_support/core_ext/array/extract_options'
+require 'sinarey_support/core_ext/array/grouping'
+require 'sinarey_support/core_ext/array/prepend_and_append'

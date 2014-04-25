@@ -1,0 +1,5 @@
+require 'sinarey_support/core_ext/hash/deep_merge'
+require 'sinarey_support/core_ext/hash/except'
+require 'sinarey_support/core_ext/hash/keys'
+require 'sinarey_support/core_ext/hash/reverse_merge'
+require 'sinarey_support/core_ext/hash/slice'

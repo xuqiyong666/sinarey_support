@@ -1,0 +1,1 @@
+require 'sinarey_support/core_ext/kernel/singleton_class'

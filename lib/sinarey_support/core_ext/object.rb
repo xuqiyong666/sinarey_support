@@ -1,0 +1,5 @@
+require 'sinarey_support/core_ext/object/acts_like'
+require 'sinarey_support/core_ext/object/blank'
+require 'sinarey_support/core_ext/object/to_param'
+require 'sinarey_support/core_ext/object/to_query'
+require 'sinarey_support/core_ext/object/try'

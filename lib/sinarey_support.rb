@@ -1,0 +1,6 @@
+require 'sinarey_support/core_ext/kernel'
+require 'sinarey_support/core_ext/string'
+require 'sinarey_support/core_ext/array'
+require 'sinarey_support/core_ext/hash'
+require 'sinarey_support/core_ext/object'
+require 'sinarey_support/core_ext/struct'
