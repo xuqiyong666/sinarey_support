@@ -1,7 +1,7 @@
 # coding: utf-8
 Gem::Specification.new do |spec|
   spec.name          = "sinarey_support"
-  spec.version       = "0.0.2"
+  spec.version       = "0.0.3"
   spec.authors       = ["Jeffrey"]
   spec.email         = ["jeffrey6052@163.com"]
   spec.description   = "some useful methods for sinatra framework"

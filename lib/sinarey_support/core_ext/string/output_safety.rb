@@ -3,49 +3,31 @@ require 'sinarey_support/core_ext/kernel/singleton_class'
 
 class ERB
   module Util
-    HTML_ESCAPE = { '&' => '&amp;',  '>' => '&gt;',   '<' => '&lt;', '"' => '&quot;', "'" => '&#39;' }
-    JSON_ESCAPE = { '&' => '\u0026', '>' => '\u003E', '<' => '\u003C' }
-    HTML_ESCAPE_ONCE_REGEXP = /["><']|&(?!([a-zA-Z]+|(#\d+));)/
-    JSON_ESCAPE_REGEXP = /[&"><]/
 
-    # A utility method for escaping HTML without affecting existing escaped entities.
-    #
-    #   html_escape_once('1 < 2 &amp; 3')
-    #   # => "1 &lt; 2 &amp; 3"
-    #
-    #   html_escape_once('&lt;&lt; Accept & Checkout')
-    #   # => "&lt;&lt; Accept &amp; Checkout"
+    HTML_ECP = { '&' => '&amp;',  '>' => '&gt;',   '<' => '&lt;', '"' => '&quot;', "'" => '&#39;' }
+    JSON_ECP = { '&' => '\u0026', '>' => '\u003E', '<' => '\u003C' }
+    HTML_ECP_ONCE = /["><']|&(?!([a-zA-Z]+|(#\d+));)/
+    JSON_ECP_REGEXP = /[&"><]/
+
     def html_escape_once(s)
-      result = s.to_s.gsub(HTML_ESCAPE_ONCE_REGEXP, HTML_ESCAPE)
+      result = s.to_s.gsub(HTML_ECP_ONCE, HTML_ECP)
       s.html_safe? ? result.html_safe : result
     end
 
     module_function :html_escape_once
 
-    # A utility method for escaping HTML entities in JSON strings
-    # using \uXXXX JavaScript escape sequences for string literals:
-    #
-    #   json_escape('is a > 0 & a < 10?')
-    #   # => is a \u003E 0 \u0026 a \u003C 10?
-    #
-    # Note that after this operation is performed the output is not
-    # valid JSON. In particular double quotes are removed:
-    #
-    #   json_escape('{"name":"john","created_at":"2010-04-28T01:39:31Z","id":1}')
-    #   # => {name:john,created_at:2010-04-28T01:39:31Z,id:1}
     def json_escape(s)
-      result = s.to_s.gsub(JSON_ESCAPE_REGEXP, JSON_ESCAPE)
+      result = s.to_s.gsub(JSON_ECP_REGEXP, JSON_ECP)
       s.html_safe? ? result.html_safe : result
     end
 
     module_function :json_escape
 
-
     def sinarey_escape(value)
       if value.html_safe?
         value.to_s
       else
-        value.to_s.gsub(/[&"'><]/, HTML_ESCAPE)
+        value.to_s.gsub(/[&"'><]/, HTML_ECP)
       end
     end
 
@@ -84,7 +66,7 @@ class NilClass
   end
 end
 
-module ActiveSupport #:nodoc:
+module SinareySupport #:nodoc:
   class SafeBuffer < String
     UNSAFE_STRING_METHODS = %w(
       capitalize chomp chop delete downcase gsub lstrip next reverse rstrip
@@ -193,6 +175,6 @@ end
 
 class String
   def html_safe
-    ActiveSupport::SafeBuffer.new(self)
+    SinareySupport::SafeBuffer.new(self)
   end
 end
